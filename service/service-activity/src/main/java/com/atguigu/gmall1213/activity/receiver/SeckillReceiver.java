@@ -106,5 +106,33 @@ public class SeckillReceiver{
             channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         }
     }
+    // 每天定时清空缓存数据
+    @SneakyThrows
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = MqConst.QUEUE_TASK_18),
+            exchange = @Exchange(value = MqConst.EXCHANGE_DIRECT_TASK),
+            key = {MqConst.ROUTING_TASK_18}
+    ))
+    public void clearRedisData(Message message,Channel channel){
+        // 获取活动结束的商品
+        QueryWrapper<SeckillGoods> seckillGoodsQueryWrapper = new QueryWrapper<>();
+        seckillGoodsQueryWrapper.eq("status",1).le("end_time",new Date());
+        List<SeckillGoods> seckillGoodsList = seckillGoodsMapper.selectList(seckillGoodsQueryWrapper);
 
+        // 清空缓存
+        for (SeckillGoods seckillGoods : seckillGoodsList) {
+            // 商品库存数量
+            redisTemplate.delete(RedisConst.SECKILL_STOCK_PREFIX+seckillGoods.getSkuId());
+        }
+        redisTemplate.delete(RedisConst.SECKILL_GOODS);
+        redisTemplate.delete(RedisConst.SECKILL_ORDERS);
+        redisTemplate.delete(RedisConst.SECKILL_ORDERS_USERS);
+        // 将审核状态更新一下
+        SeckillGoods seckillGoods = new SeckillGoods();
+        seckillGoods.setStatus("2");
+        seckillGoodsMapper.update(seckillGoods,seckillGoodsQueryWrapper);
+
+        // 手动确认
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+    }
 }

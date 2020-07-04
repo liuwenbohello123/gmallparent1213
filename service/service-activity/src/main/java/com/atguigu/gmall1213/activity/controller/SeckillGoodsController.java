@@ -46,6 +46,9 @@ public class SeckillGoodsController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private OrderFeignClient orderFeignClient;
+
     // 查询所有秒杀商品数据
     @GetMapping("findAll")
     public Result findAll(){
@@ -178,5 +181,28 @@ public class SeckillGoodsController {
 
     }
 
+    // 秒杀提交订单
+    @PostMapping("auth/submitOrder")
+    public Result submitOrder(@RequestBody OrderInfo orderInfo,HttpServletRequest request){
+        // 获取用户Id
+        String userId = AuthContextHolder.getUserId(request);
+        orderInfo.setUserId(Long.parseLong(userId));
+        // 数据都在缓存中
+        OrderRecode orderRecode = (OrderRecode) redisTemplate.boundHashOps(RedisConst.SECKILL_ORDERS).get(userId);
+        if (null == orderRecode){
+            return Result.fail().message("非法操作。。。。。");
+        }
+        // 调用订单服务中的方法
+        Long orderId = orderFeignClient.submitOrder(orderInfo);
+        if (null==orderId){
+            return Result.fail().message("下订单失败。。。。。");
+        }
+        // 删除下单的信息
+        redisTemplate.boundHashOps(RedisConst.SECKILL_ORDERS).delete(userId);
+        // 保存一个下单记录
+        redisTemplate.boundHashOps(RedisConst.SECKILL_ORDERS_USERS).put(userId,orderId.toString());
+        // 返回数据
+        return Result.ok(orderId);
+    }
 
 }

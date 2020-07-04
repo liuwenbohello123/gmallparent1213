@@ -26,4 +26,10 @@ public class ScheduledTask {
         // System.out.println("定时任务来了。。。。。。");
         rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_TASK,MqConst.ROUTING_TASK_1,"");
     }
+
+    @Scheduled(cron="0 0 18 * * ?")
+    public void task18(){
+        // System.out.println("定时任务来了。。。。。。");
+        rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_TASK,MqConst.ROUTING_TASK_18,"");
+    }
 }
