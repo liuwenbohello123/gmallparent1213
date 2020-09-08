@@ -26,7 +26,7 @@ public class GmallException extends RuntimeException {
         this.code = code;
     }
 
-    /**
+      /**
      * 接收枚举类型对象
      * @param resultCodeEnum
      */

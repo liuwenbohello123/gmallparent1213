@@ -1,0 +1,6 @@
+com\atguigu\gmall1213\gateway\config\KeyResolverConfig.class
+com\atguigu\gmall1213\gateway\config\RedisConfig.class
+com\atguigu\gmall1213\gateway\config\RedisConfig$1.class
+com\atguigu\gmall1213\gateway\filter\AuthGlobalFilter.class
+com\atguigu\gmall1213\gateway\config\CorsConfig.class
+com\atguigu\gmall1213\gateway\ServerGatewayApplication.class

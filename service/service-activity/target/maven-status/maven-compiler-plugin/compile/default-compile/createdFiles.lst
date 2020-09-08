@@ -1,0 +1,10 @@
+com\atguigu\gmall1213\activity\receiver\SeckillReceiver.class
+com\atguigu\gmall1213\activity\mapper\SeckillGoodsMapper.class
+com\atguigu\gmall1213\activity\util\DateUtil.class
+com\atguigu\gmall1213\activity\redis\RedisChannelConfig.class
+com\atguigu\gmall1213\activity\ServiceActivityApplication.class
+com\atguigu\gmall1213\activity\controller\SeckillGoodsController.class
+com\atguigu\gmall1213\activity\service\SeckillGoodsService.class
+com\atguigu\gmall1213\activity\util\CacheHelper.class
+com\atguigu\gmall1213\activity\service\impl\SeckillGoodsServiceImpl.class
+com\atguigu\gmall1213\activity\redis\MessageReceive.class

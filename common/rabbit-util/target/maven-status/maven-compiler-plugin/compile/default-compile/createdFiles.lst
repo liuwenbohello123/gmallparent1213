@@ -1,0 +1,4 @@
+com\atguigu\gmall1213\common\config\MQProducerAckConfig.class
+com\atguigu\gmall1213\common\constant\MqConst.class
+com\atguigu\gmall1213\common\service\RabbitService$1.class
+com\atguigu\gmall1213\common\service\RabbitService.class

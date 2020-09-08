@@ -1,0 +1,6 @@
+com\atguigu\gmall1213\list\ServiceListApplication.class
+com\atguigu\gmall1213\list\receiver\ListReceiver.class
+com\atguigu\gmall1213\list\controller\ListApiController.class
+com\atguigu\gmall1213\list\repository\GoodsRepository.class
+com\atguigu\gmall1213\list\service\impl\SearchServiceImpl.class
+com\atguigu\gmall1213\list\service\SearchService.class
